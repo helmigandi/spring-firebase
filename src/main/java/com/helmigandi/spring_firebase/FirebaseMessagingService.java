@@ -1,15 +1,11 @@
 package com.helmigandi.spring_firebase;
 
 import com.google.firebase.messaging.*;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
-@RequiredArgsConstructor
 public class FirebaseMessagingService {
 
     public String sendNotification(NotificationRequest request) throws FirebaseMessagingException {
@@ -40,8 +36,6 @@ public class FirebaseMessagingService {
                         .build())
                 .build();
 
-        log.info("Message sent: {}", message.toString());
-
         return FirebaseMessaging.getInstance().send(message);
     }
 
@@ -56,7 +50,6 @@ public class FirebaseMessagingService {
                 .build();
         try {
             BatchResponse response = FirebaseMessaging.getInstance().sendEachForMulticast(message);
-            log.info("Successfully sent messages: {}", response.getSuccessCount());
             return response.toString();
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
